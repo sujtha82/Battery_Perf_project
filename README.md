@@ -46,7 +46,7 @@ It produces:
 - markdown report in `output/`
 - console progress with emojis and ASCII tables
 
-## Why this matches the task
+## the task
 
 The LLM does **not** process raw interval data directly.
 

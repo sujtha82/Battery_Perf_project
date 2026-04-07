@@ -1,0 +1,21 @@
+# Environment secrets
+.env
+.env.example
+
+# Python build/cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+env/
+venv/
+ENV/
+
+# User requested ignore
+core/config.py
+config.py
+
+# System outputs
+output/
