@@ -31,9 +31,9 @@ battery_perf_system/
 │   ├── identify_high_price_intervals.py
 │   └── identify_missed_opportunities.py
 ├── data/
-│   └── Takehome_Problem_Agentic_Battery_Analysis_System_BLYTHB1_20260126.csv
+│   └── .gitkeep
 └── output/
-    └── battery_report.md
+    └── .gitkeep
 ```
 
 ## 🚀 What it does
