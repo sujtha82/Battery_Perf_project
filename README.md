@@ -94,3 +94,7 @@ python agent.py --csv data/your_file.csv
 - **Multi-Provider**: Refactored to work with high-speed LLMs like Groq (Llama 3.3) and GPT-4o.
 - **Agentic Loop**: Uses an iterative tool-use loop rather than one-shot prompts.
 - **Reliability**: Built-in Windows console encoding support and robust CSV validation.
+
+- #Terminal report
+- <img width="902" height="288" alt="image" src="https://github.com/user-attachments/assets/1da854cd-2ba8-4119-952d-3352f75cc82b" />
+
