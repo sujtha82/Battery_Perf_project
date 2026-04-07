@@ -19,3 +19,4 @@ config.py
 
 # System outputs
 output/
+assets/

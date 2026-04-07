@@ -2,20 +2,24 @@
 
 A production-ready, tool-using LLM agent for battery trading performance analysis.
 
-## Folder Structure
+## 📁 Folder Structure
 
 ```text
 battery_perf_system/
 ├── agent.py
 ├── requirements.txt
 ├── .env.example
+├── .gitignore
 ├── README.md
+├── assets/
+│   └── execution_results.png
 ├── core/
 │   ├── __init__.py
 │   ├── config.py
 │   ├── data_loader.py
 │   ├── formatting.py
 │   ├── models.py
+│   ├── prompts.py
 │   ├── report_writer.py
 │   └── tool_registry.py
 ├── tools/
@@ -32,47 +36,28 @@ battery_perf_system/
     └── .gitkeep
 ```
 
-## What it does
+## 🚀 What it does
 
-The system compares:
-- `historical` battery operation
-- `perfect` foresight battery operation
+The system analyzes battery performance by comparing:
+- **Historical** battery operation
+- **Perfect Foresight** operation (ideal scenario)
 
-It produces:
-- revenue gap in dollars and percent
-- one primary driver
-- one secondary driver
-- two actionable recommendations with tradeoffs
-- markdown report in `output/`
-- console progress with emojis and ASCII tables
+It produces a comprehensive report in [**`output/`**](file:///c:/Users/aknar/Downloads/battery_perf_system/output) detailing:
+- Revenue gap in dollars and percent.
+- Primary and secondary drivers of the gap.
+- Two actionable recommendations for traders.
 
-## the task
+## 💎 Results
 
-The LLM does **not** process raw interval data directly.
+![Execution Summary](file:///c:/Users/aknar/Downloads/battery_perf_system/assets/execution_results.png)
 
-Instead:
-1. Python loads and validates the CSV
-2. The LLM receives a set of tools
-3. The LLM decides which tools to call
-4. Each tool computes structured evidence from the dataframe
-5. The LLM synthesizes the findings into a report
+## 🛠 Setup
 
-That gives you a real multi-step agent workflow instead of a one-shot prompt.
-
-## Setup
-
-### 1. Create and activate a virtual environment
-
-**Windows**
+### 1. Create and activate a Virtual Environment
 ```bash
 python -m venv .venv
-.venv\Scripts\activate
-```
-
-**macOS / Linux**
-```bash
-python -m venv .venv
-source .venv/bin/activate
+.venv\Scripts\activate  # Windows
+source .venv/bin/activate  # macOS / Linux
 ```
 
 ### 2. Install dependencies
@@ -80,68 +65,32 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Add your API key
-Copy `.env.example` to `.env` and set:
+### 3. Configure your Provider
+Copy [**`.env.example`**](file:///c:/Users/aknar/Downloads/battery_perf_system/.env.example) to `.env` and configure your API keys. The system supports both **Groq** and **OpenAI**.
 
 ```bash
-OPENAI_API_KEY=your_real_key_here
-OPENAI_MODEL=gpt-5
+# Set your preferred provider (openai or groq)
+PROVIDER=groq
+
+# Add your keys
+OPENAI_API_KEY=your_openai_key
+GROQ_API_KEY=your_groq_key
 ```
 
 ### 4. Put your CSV in `data/`
-
 Example:
 ```text
 data/Takehome_Problem_Agentic_Battery_Analysis_System_BLYTHB1_20260126.csv
 ```
 
-### 5. Run
+### 5. Run the Analysis
 ```bash
-python agent.py --csv data/Takehome_Problem_Agentic_Battery_Analysis_System_BLYTHB1_20260126.csv
+python agent.py --csv data/your_file.csv
 ```
 
-Optional:
-```bash
-python agent.py --csv data/your_file.csv --report-name blyth_report.md
-```
+## 🧠 Architecture
 
-## Required Input Schema
-
-The CSV must contain:
-- `SCENARIO_NAME`
-- `SCHEDULE_TYPE`
-- `START_DATETIME`
-- `SOC`
-- `CHARGE_ENERGY`
-- `DISCHARGE_ENERGY`
-- `PRICE_ENERGY`
-- `REVENUE_ENERGY`
-
-Expected values:
-- `SCENARIO_NAME`: `historical`, `perfect`
-- `SCHEDULE_TYPE`: `expected`, `cleared`
-
-## Output
-
-### Console
-- progress logs with emojis
-- compact ASCII summary table
-- report path
-
-### File
-- markdown report written to `output/`
-
-## Architecture Notes
-
-- Each tool is isolated in its own file
-- `agent.py` is the main orchestrator
-- `core/` contains shared infrastructure
-- `output/` is used for generated reports
-- calculations stay in Python tools
-- synthesis stays in the LLM
-
-## Recommended Submission Note
-
-You can describe the solution like this:
-
-> I built a modular LLM agent that uses domain-specific Python tools to analyze battery performance rather than passing raw interval data directly into a single prompt. The agent follows a multi-step workflow, computes structured evidence for revenue gap, dispatch mismatch, price-window underperformance, SOC readiness, and schedule adherence, then synthesizes the findings into a trader-facing report with evidence-backed recommendations.
+- **Modular Tools**: Each analysis task is isolated in its own file in [**`tools/`**](file:///c:/Users/aknar/Downloads/battery_perf_system/tools).
+- **Multi-Provider**: Refactored to work with high-speed LLMs like Groq (Llama 3.3) and GPT-4o.
+- **Agentic Loop**: Uses an iterative tool-use loop rather than one-shot prompts.
+- **Reliability**: Built-in Windows console encoding support and robust CSV validation.
